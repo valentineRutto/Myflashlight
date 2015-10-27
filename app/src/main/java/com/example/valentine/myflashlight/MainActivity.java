@@ -1,5 +1,6 @@
 package com.example.valentine.myflashlight;
 
+import android.content.pm.PackageManager;
 import android.graphics.Camera;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -20,6 +21,9 @@ private Camera camera;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        hasFlash=getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
+
     }
 
     @Override
