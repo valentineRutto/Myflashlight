@@ -16,6 +16,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:checked="false" />
+        android:checked="false"
+        android:background="@color/lightprimary"
+        android:textColor="@color/text" />
 
 </RelativeLayout>
