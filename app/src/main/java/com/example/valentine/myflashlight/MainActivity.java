@@ -1,11 +1,20 @@
 package com.example.valentine.myflashlight;
 
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.Camera;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
+private Camera camera;
+    Button btnSwitch;
+    private boolean isFlashOn;
+    private boolean hasFlash;
+    android.hardware.Camera.Parameters params;
+    MediaPlayer mp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
