@@ -1,5 +1,7 @@
 package com.example.valentine.myflashlight;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Camera;
 import android.media.MediaPlayer;
@@ -23,6 +25,19 @@ private Camera camera;
         setContentView(R.layout.activity_main);
 
         hasFlash=getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
+   if (!hasFlash){
+       AlertDialog alert= new AlertDialog.Builder(MainActivity.this).create();
+       alert.setTitle("ERROR");
+       alert.setMessage("Sorry, your device doesnt support flash light!");
+       alert.setButton("OK", new DialogInterface.OnClickListener() {
+           @Override
+           public void onClick(DialogInterface dialog, int which) {
+               finish();
+           }
+       });
+alert.show();
+       return;
+   }
 
     }
 
