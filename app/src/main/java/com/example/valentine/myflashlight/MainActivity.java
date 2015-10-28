@@ -26,10 +26,10 @@ private Camera camera;
 
         hasFlash=getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
    if (!hasFlash){
-       AlertDialog alert= new AlertDialog.Builder(MainActivity.this).create();
+     AlertDialog.Builder alert= new AlertDialog.Builder(MainActivity.this);
        alert.setTitle("ERROR");
        alert.setMessage("Sorry, your device doesnt support flash light!");
-       alert.setButton("OK", new DialogInterface.OnClickListener() {
+       alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
            @Override
            public void onClick(DialogInterface dialog, int which) {
                finish();
