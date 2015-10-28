@@ -35,7 +35,8 @@ private Camera camera;
                finish();
            }
        });
-alert.show();
+       AlertDialog builder=alert.create();
+builder.show();
        return;
    }
 
