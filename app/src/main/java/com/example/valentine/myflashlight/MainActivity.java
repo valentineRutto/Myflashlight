@@ -3,16 +3,17 @@ package com.example.valentine.myflashlight;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
-import android.graphics.Camera;
+import android.hardware.Camera;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
-private Camera camera;
+    private android.hardware.Camera camera;
     Button btnSwitch;
     private boolean isFlashOn;
     private boolean hasFlash;
@@ -24,23 +25,37 @@ private Camera camera;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        hasFlash=getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
-   if (!hasFlash){
-     AlertDialog.Builder alert= new AlertDialog.Builder(MainActivity.this);
-       alert.setTitle("ERROR");
-       alert.setMessage("Sorry, your device doesnt support flash light!");
-       alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-           @Override
-           public void onClick(DialogInterface dialog, int which) {
-               finish();
-           }
-       });
-       AlertDialog builder=alert.create();
-builder.show();
-       return;
-   }
-
+        hasFlash = getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
+        if (!hasFlash) {
+            AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
+            alert.setTitle("ERROR");
+            alert.setMessage("Sorry, your device doesnt support flash light!");
+            alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+            AlertDialog builder = alert.create();
+            builder.show();
+            return;
+        }
+        getCamera();
+camera= android.hardware.Camera.open();
     }
+
+    private void getCamera() {
+        if (camera==null){
+            try{
+                camera= Camera.open();
+                params=camera.getParameters();
+            }
+            catch (RuntimeException e){
+                Log.e("Camera Error:",e.getMessage());
+            }
+        }
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
