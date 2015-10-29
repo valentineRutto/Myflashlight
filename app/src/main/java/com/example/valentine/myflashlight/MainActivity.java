@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                     if(camera==null ||params==null){
                         return;
                     }
-                    playSound();
+//                    playSound();
                     params=camera.getParameters();
                     params.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
    camera.stopPreview();
@@ -78,6 +78,88 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        // on pause turn off the flash
+        turnOffFlash();
+    }
+
+    private void turnOffFlash() {
+        if(camera==null ||params==null){
+            return;
+        }
+//                    playSound();
+        params=camera.getParameters();
+        params.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+        camera.stopPreview();
+        isFlashOn=false;
+        
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // on resume turn on the flash
+        if(hasFlash)
+            turnOnFlash();
+    }
+
+    private void turnOnFlash() {
+        if (!isFlashOn) {
+            if (camera == null || params == null) {
+                return;
+            }
+            // play sound
+//            playSound();
+
+            params = camera.getParameters();
+            params.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+            camera.setParameters(params);
+            camera.startPreview();
+            isFlashOn = true;
+
+            // changing button/switch image
+//            toggleButtonImage();
+        }
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        // on starting the app get the camera params
+        getCamera();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        // on stop release the camera
+        if (camera != null) {
+            camera.release();
+            camera = null;
+        }
+    }
+    
+    
+    
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
