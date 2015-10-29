@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnSwitch;
     private boolean isFlashOn;
     private boolean hasFlash;
-    android.hardware.Camera.Parameters params;
+ Camera.Parameters params;
     MediaPlayer mp;
 
     @Override
@@ -40,18 +41,38 @@ public class MainActivity extends AppCompatActivity {
             builder.show();
             return;
         }
-        getCamera();
-camera= android.hardware.Camera.open();
-    }
 
-    private void getCamera() {
-        if (camera==null){
-            try{
-                camera= Camera.open();
-                params=camera.getParameters();
+        getCamera();
+        
+        btnSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isFlashOn){
+                    turnOffFlash();
+                }
             }
-            catch (RuntimeException e){
-                Log.e("Camera Error:",e.getMessage());
+
+            private void turnOffFlash() {
+                if (isFlashOn){
+                    if(camera==null ||params==null){
+                        return;
+                    }
+                    playSound();
+                    params=camera.getParameters();
+                    params.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+   camera.stopPreview();
+                    isFlashOn=false;
+                }}
+        });
+
+    }
+    private void getCamera() {
+        if (camera == null) {
+            try {
+                camera = Camera.open();
+                params = camera.getParameters();
+            } catch (RuntimeException e) {
+                Log.e("Camera Error:", e.getMessage());
             }
         }
     }
