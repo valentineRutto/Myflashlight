@@ -14,12 +14,19 @@ import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
-    private android.hardware.Camera camera;
-    Button btnSwitch;
-    private boolean isFlashOn;
+    private Button btnSwitch;
+    private boolean isFlashOn = false;
     private boolean hasFlash;
- Camera.Parameters params;
+    private Camera camera;
     MediaPlayer mp;
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (camera != null) {
+            camera.release();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,29 +50,19 @@ public class MainActivity extends AppCompatActivity {
         }
 
         getCamera();
-        
+
         btnSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isFlashOn){
-                    turnOffFlash();
+                if (isFlashOn) {
                 }
             }
 
-            private void turnOffFlash() {
-                if (isFlashOn){
-                    if(camera==null ||params==null){
-                        return;
-                    }
-//                    playSound();
-                    params=camera.getParameters();
-                    params.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
-   camera.stopPreview();
-                    isFlashOn=false;
-                }}
+
         });
 
     }
+
     private void getCamera() {
         if (camera == null) {
             try {
@@ -78,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -88,21 +84,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
-        // on pause turn off the flash
-        turnOffFlash();
+
     }
 
-    private void turnOffFlash() {
-        if(camera==null ||params==null){
-            return;
-        }
-//                    playSound();
-        params=camera.getParameters();
-        params.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
-        camera.stopPreview();
-        isFlashOn=false;
-        
-    }
+
 
     @Override
     protected void onRestart() {
@@ -114,29 +99,10 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         // on resume turn on the flash
-        if(hasFlash)
+        if (hasFlash)
             turnOnFlash();
     }
 
-    private void turnOnFlash() {
-        if (!isFlashOn) {
-            if (camera == null || params == null) {
-                return;
-            }
-            // play sound
-//            playSound();
-
-            params = camera.getParameters();
-            params.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
-            camera.setParameters(params);
-            camera.startPreview();
-            isFlashOn = true;
-
-            // changing button/switch image
-//            toggleButtonImage();
-        }
-
-    }
 
     @Override
     protected void onStart() {
@@ -146,20 +112,8 @@ public class MainActivity extends AppCompatActivity {
         getCamera();
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
 
-        // on stop release the camera
-        if (camera != null) {
-            camera.release();
-            camera = null;
-        }
-    }
-    
-    
-    
-    
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
