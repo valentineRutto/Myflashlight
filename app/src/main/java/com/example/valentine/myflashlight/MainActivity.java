@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         hasFlash = getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
         if (!hasFlash) {
             AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
@@ -48,13 +49,26 @@ public class MainActivity extends AppCompatActivity {
             builder.show();
             return;
         }
+        camera=Camera.open();
+        final Camera.Parameters p=camera.getParameters();
 
-        getCamera();
 
+btnSwitch=(Button) findViewById(R.id.button);
         btnSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (isFlashOn) {
+                    Log.i("info","torch is turn off!");
+                    p.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+                    camera.setParameters(p);
+                    camera.startPreview();
+                    isFlashOn=true;
+                }else {
+                    Log.i("info","torch is turn on!");
+                    p.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+                    camera.setParameters(p);
+                    camera.startPreview();
+                    isFlashOn=true;
                 }
             }
 
@@ -62,18 +76,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
-    private void getCamera() {
-        if (camera == null) {
-            try {
-                camera = Camera.open();
-                params = camera.getParameters();
-            } catch (RuntimeException e) {
-                Log.e("Camera Error:", e.getMessage());
-            }
-        }
-    }
-
 
     @Override
     protected void onDestroy() {
@@ -83,8 +85,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-
-
     }
 
 
@@ -97,19 +97,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        // on resume turn on the flash
-        if (hasFlash)
-            turnOnFlash();
     }
 
 
     @Override
     protected void onStart() {
         super.onStart();
-
-        // on starting the app get the camera params
-        getCamera();
     }
 
 
