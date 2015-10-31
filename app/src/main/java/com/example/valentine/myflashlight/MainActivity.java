@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
         camera=Camera.open();
         final Camera.Parameters p=camera.getParameters();
 
-
 btnSwitch=(Button) findViewById(R.id.button);
         btnSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,8 +70,6 @@ btnSwitch=(Button) findViewById(R.id.button);
                     isFlashOn=true;
                 }
             }
-
-
         });
 
     }
