@@ -3,6 +3,7 @@ package com.example.valentine.myflashlight;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.hardware.Camera;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -39,7 +40,15 @@ public class MainActivity extends AppCompatActivity {
         l.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                return false;
+                switch (event.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        v.setBackgroundColor(Color.CYAN);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        v.setBackgroundColor(Color.BLUE);
+                        break;
+                }
+                return true;
             }
         });
 
