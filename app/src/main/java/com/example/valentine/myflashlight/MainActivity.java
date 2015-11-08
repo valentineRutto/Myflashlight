@@ -1,6 +1,7 @@
 package com.example.valentine.myflashlight;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -13,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
@@ -22,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     private boolean hasFlash;
     private Camera camera;
     MediaPlayer mp;
+    private Context myContext;
+
 
     @Override
     protected void onStop() {
@@ -35,6 +39,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        myContext = this;
+
+        initialize();
+
 
         LinearLayout l=(LinearLayout)findViewById(R.id.mylayout);
         l.setOnTouchListener(new View.OnTouchListener() {
