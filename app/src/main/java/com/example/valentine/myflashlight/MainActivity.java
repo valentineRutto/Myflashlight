@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -160,5 +162,27 @@ if(mCam !=null){
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public class MirrorView extends SurfaceView implements SurfaceHolder.Callback {
+
+        public MirrorView(Context context) {
+            super(context);
+        }
+
+        @Override
+        public void surfaceCreated(SurfaceHolder holder) {
+
+        }
+
+        @Override
+        public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+
+        }
+
+        @Override
+        public void surfaceDestroyed(SurfaceHolder holder) {
+
+        }
     }
 }
