@@ -103,6 +103,10 @@ btnSwitch=(Button) findViewById(R.id.button);
 
     private void startCameraInLayout(FrameLayout layout, int cameraId) {
         mCam = Camera.open(cameraId);
+if(mCam !=null){
+    mCamPreview=new MirrorView(this,mCam);
+    layout.addView(mCamPreview);
+}
 
     }
 
