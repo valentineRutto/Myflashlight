@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 
 public class MainActivity extends AppCompatActivity {
     private Button btnSwitch;
@@ -21,7 +22,10 @@ public class MainActivity extends AppCompatActivity {
     private Camera camera;
     MediaPlayer mp;
     private Context myContext;
-
+    private Camera mCam;
+    private MirrorView mCamPreview;
+    private int mCameraId = 0;
+    private FrameLayout mPreviewLayout;
 
     @Override
     protected void onStop() {
@@ -35,6 +39,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mCameraId = findFirstFrontFacingCamera();
+
+        mPreviewLayout = (FrameLayout) findViewById(R.id.camPreview);
+        mPreviewLayout.removeAllViews();
+
+        startCameraInLayout(mPreviewLayout, mCameraId);
 
         hasFlash = getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
         if (!hasFlash) {
@@ -59,22 +70,38 @@ btnSwitch=(Button) findViewById(R.id.button);
             @Override
             public void onClick(View v) {
                 if (isFlashOn) {
-                    Log.i("info","torch is turn off!");
+                    Log.i("info", "torch is turn off!");
                     p.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
                     camera.setParameters(p);
                     camera.startPreview();
-                    isFlashOn=true;
-                }else {
-                    Log.i("info","torch is turn on!");
+                    isFlashOn = true;
+                } else {
+                    Log.i("info", "torch is turn on!");
                     p.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
                     camera.setParameters(p);
                     camera.startPreview();
-                    isFlashOn=true;
+                    isFlashOn = true;
                 }
             }
         });
 
     }
+
+    private int findFirstFrontFacingCamera() {
+        int foundId = -1;
+        int numCams = Camera.getNumberOfCameras();
+        for (int camId = 0; camId < numCams; camId++) {
+            Camera.CameraInfo info = new Camera.CameraInfo();
+            Camera.getCameraInfo(camId, info);
+            if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+                foundId = camId;
+                break;
+            }
+        }
+        return foundId;
+    }
+
+
 
     @Override
     protected void onDestroy() {
