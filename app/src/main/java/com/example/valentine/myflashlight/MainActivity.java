@@ -101,7 +101,10 @@ btnSwitch=(Button) findViewById(R.id.button);
         return foundId;
     }
 
+    private void startCameraInLayout(FrameLayout layout, int cameraId) {
+        mCam = Camera.open(cameraId);
 
+    }
 
     @Override
     protected void onDestroy() {
