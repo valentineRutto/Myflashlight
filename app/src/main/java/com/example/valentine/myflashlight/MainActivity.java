@@ -165,10 +165,17 @@ if(mCam !=null){
     }
 
     public class MirrorView extends SurfaceView implements SurfaceHolder.Callback {
+        private SurfaceHolder mHolder;
+        private Camera mCamera;
 
         public MirrorView(Context context) {
             super(context);
+            mCamera = camera;
+            mHolder = getHolder();
+            mHolder.addCallback(this);
+            mHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         }
+
 
         @Override
         public void surfaceCreated(SurfaceHolder holder) {
