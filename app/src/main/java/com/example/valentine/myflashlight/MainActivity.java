@@ -168,7 +168,7 @@ if(mCam !=null){
         private SurfaceHolder mHolder;
         private Camera mCamera;
 
-        public MirrorView(Context context) {
+        public MirrorView(Context context, Camera mCam) {
             super(context);
             mCamera = camera;
             mHolder = getHolder();
@@ -179,7 +179,17 @@ if(mCam !=null){
 
         @Override
         public void surfaceCreated(SurfaceHolder holder) {
+            try {
+                mCamera.setPreviewDisplay(holder);
+                mCamera.startPreview();
+            } catch (Exception error) {
+                Log.d(DEBUG_TAG,
+                        "Error starting mPreviewLayout: " + error.getMessage());
+            }
 
+        }
+
+        public void surfaceDestroyed(SurfaceHolder holder) {
         }
 
         @Override
