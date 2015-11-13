@@ -191,6 +191,22 @@ if(mCam !=null){
 
         public void surfaceDestroyed(SurfaceHolder holder) {
         }
+        if (mHolder.getSurface() == null) {
+            return;
+        }
+       try{ mCamera.stopPreview();
+    } catch (Exception e) {}
+        try {
+
+            // start up the mPreviewLayout
+            mCamera.setPreviewDisplay(mHolder);
+            mCamera.startPreview();
+
+        } catch (Exception error) {
+            Log.d(DEBUG_TAG,
+                    "Error starting mPreviewLayout: " + error.getMessage());
+        }
+
 
         @Override
         public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
