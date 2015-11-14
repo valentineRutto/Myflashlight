@@ -17,6 +17,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
+import java.io.IOException;
+
 public class MainActivity extends AppCompatActivity {
     private Button btnSwitch;
     private boolean isFlashOn = false;
@@ -196,13 +198,17 @@ if(mCam !=null){
         }
        try{ mCamera.stopPreview();
     } catch (Exception e) {}
-        try {
+
 
             // start up the mPreviewLayout
-            mCamera.setPreviewDisplay(mHolder);
+            try {
+                mCamera.setPreviewDisplay(mHolder);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
             mCamera.startPreview();
 
-        } catch (Exception error) {
+        } catch (Exception error){
             Log.d(DEBUG_TAG,
                     "Error starting mPreviewLayout: " + error.getMessage());
         }
@@ -213,9 +219,6 @@ if(mCam !=null){
 
         }
 
-        @Override
-        public void surfaceDestroyed(SurfaceHolder holder) {
 
-        }
     }
 }
