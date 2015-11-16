@@ -11,13 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
-
-import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
     private Button btnSwitch;
@@ -27,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
     MediaPlayer mp;
     private Context myContext;
     private Camera mCam;
-    private MirrorView mCamPreview;
     private int mCameraId = 0;
     private FrameLayout mPreviewLayout;
 
@@ -43,13 +38,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        mCameraId = findFirstFrontFacingCamera();
-
-        mPreviewLayout = (FrameLayout) findViewById(R.id.camPreview);
-        mPreviewLayout.removeAllViews();
-
-        startCameraInLayout(mPreviewLayout, mCameraId);
 
         hasFlash = getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
         if (!hasFlash) {
@@ -105,14 +93,8 @@ btnSwitch=(Button) findViewById(R.id.button);
         return foundId;
     }
 
-    private void startCameraInLayout(FrameLayout layout, int cameraId) {
-        mCam = Camera.open(cameraId);
-if(mCam !=null){
-    mCamPreview=new MirrorView(this,mCam);
-    layout.addView(mCamPreview);
-}
 
-    }
+
 
     @Override
     protected void onDestroy() {
@@ -166,31 +148,14 @@ if(mCam !=null){
         return super.onOptionsItemSelected(item);
     }
 
-    public class MirrorView extends SurfaceView implements SurfaceHolder.Callback {
-        private SurfaceHolder mHolder;
-        private Camera mCamera;
-
-        public MirrorView(Context context, Camera mCam) {
-            super(context);
-            mCamera = camera;
-            mHolder = getHolder();
-            mHolder.addCallback(this);
-            mHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-        }
 
 
-        @Override
-        public void surfaceCreated(SurfaceHolder holder) {
-            try {
-                mCamera.setPreviewDisplay(holder);
-                mCamera.startPreview();
-            } catch (Exception error) {
-                Log.d(DEBUG_TAG,
-                        "Error starting mPreviewLayout: " + error.getMessage());
-            }
 
-        }
+
+
+
+
 
 
     }
-}
+
