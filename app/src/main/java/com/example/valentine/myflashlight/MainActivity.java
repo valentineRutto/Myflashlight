@@ -79,19 +79,7 @@ btnSwitch=(Button) findViewById(R.id.button);
 
     }
 
-    private int findFirstFrontFacingCamera() {
-        int foundId = -1;
-        int numCams = Camera.getNumberOfCameras();
-        for (int camId = 0; camId < numCams; camId++) {
-            Camera.CameraInfo info = new Camera.CameraInfo();
-            Camera.getCameraInfo(camId, info);
-            if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
-                foundId = camId;
-                break;
-            }
-        }
-        return foundId;
-    }
+
 
 
 
