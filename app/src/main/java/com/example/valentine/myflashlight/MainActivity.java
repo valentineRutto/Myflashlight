@@ -16,9 +16,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
-    private Button btnSwitch;
+    private ImageView btnSwitch;
     private boolean isFlashOn = false;
     private boolean hasFlash;
     private Camera camera;
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         camera=Camera.open();
         final Camera.Parameters p=camera.getParameters();
 
-btnSwitch=(Button) findViewById(R.id.button);
+btnSwitch=(ImageView) findViewById(R.id.button);
         btnSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

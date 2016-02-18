@@ -13,29 +13,13 @@ app:layout_behavior="@string/appbar_scrolling_view_behavior"
 tools:context="com.example.valentine.myflashlight.MainActivity"
 tools:showIn="@layout/activity_main">
 
-
-
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="flash"
-        android:id="@+id/button"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@color/text"
-        android:background="@color/accent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView"
+        android:layout_height="200dp"
+        android:id="@+id/button"
         android:src="@drawable/bulb"
-        android:layout_centerHorizontal="true"
-        android:layout_alignTop="@+id/button" />
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
