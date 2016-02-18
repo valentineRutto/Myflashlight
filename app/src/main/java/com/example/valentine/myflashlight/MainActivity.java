@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+       fab.setBackgroundTintList(getResources().getColorStateList(R.color.accent));
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
