@@ -7,6 +7,8 @@ import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -22,22 +24,21 @@ public class MainActivity extends AppCompatActivity {
     private Camera camera;
     MediaPlayer mp;
     private Context myContext;
-    private Camera mCam;
-    private int mCameraId = 0;
-    private FrameLayout mPreviewLayout;
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (camera != null) {
-            camera.release();
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
+
 
         hasFlash = getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
         if (!hasFlash) {
@@ -111,7 +112,13 @@ btnSwitch=(Button) findViewById(R.id.button);
     protected void onStart() {
         super.onStart();
     }
-
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (camera != null) {
+            camera.release();
+        }
+    }
 
 
     @Override
