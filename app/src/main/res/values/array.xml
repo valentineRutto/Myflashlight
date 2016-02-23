@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="image">
+        <item>@color/material_blue_grey_800</item>
+        <item>@color/primary</item>
+        <item>@color/sectext</item>
+    </array>
+</resources>

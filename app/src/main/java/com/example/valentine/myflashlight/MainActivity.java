@@ -38,7 +38,7 @@ private RelativeLayout mainlayout;
 
        mainlayout = (RelativeLayout) findViewById(R.id.bg);
        mainlayout.setBackgroundColor(Color.BLUE);
-        Timer timer = new Timer();
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
        fab.setBackgroundTintList(getResources().getColorStateList(R.color.accent));
