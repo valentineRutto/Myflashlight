@@ -20,8 +20,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import java.util.Timer;
-
 public class MainActivity extends AppCompatActivity {
     private ImageView btnSwitch;
     private boolean isFlashOn = false;
@@ -37,17 +35,17 @@ private RelativeLayout mainlayout;
         setContentView(R.layout.activity_main);
 
        mainlayout = (RelativeLayout) findViewById(R.id.bg);
-       mainlayout.setBackgroundColor(Color.BLUE);
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-       fab.setBackgroundTintList(getResources().getColorStateList(R.color.accent));
+        fab.setBackgroundTintList(getResources().getColorStateList(R.color.accent));
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
             }
         });
+
+
 
         hasFlash = getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
         if (!hasFlash) {

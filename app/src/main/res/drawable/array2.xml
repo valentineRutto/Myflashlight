@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <array name="image">
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <array android:name="background">
         <item>@color/material_blue_grey_800</item>
         <item>@color/primary</item>
         <item>@color/sectext</item>
     </array>
-</resources>
+</selector>
