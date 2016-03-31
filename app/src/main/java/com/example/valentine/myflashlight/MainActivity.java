@@ -36,14 +36,14 @@ private RelativeLayout mainlayout;
 
        mainlayout = (RelativeLayout) findViewById(R.id.bg);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setBackgroundTintList(getResources().getColorStateList(R.color.accent));
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setBackgroundTintList(getResources().getColorStateList(R.color.accent));
+//
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//            }
+//        });
 
 
 
